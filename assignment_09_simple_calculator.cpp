@@ -71,5 +71,109 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <string>
 using namespace std;
+
+double add(double a, double b) {
+    return a + b;
+}
+
+double subtract(double a, double b) {
+    return a - b;
+}
+
+double multiply(double a, double b) {
+    return a * b;
+}
+
+double divide(double a, double b) {
+    return a / b;
+}
+
+double getModulus(double a, double b) {
+    return fmod(a, b);
+}
+
+double power(double a, double b) {
+    return pow(a, b);
+}
+
+void calculate(char symbol) {
+    double a, b;
+
+    cout << "Enter first number : ";
+    cin >> a;
+    cout << "Enter second number: ";
+    cin >> b;
+
+    if ((symbol == '/' || symbol == '%') && b == 0) {
+        cout << "Error: Cannot divide by zero." << endl;
+        return;
+    }
+
+    double result;
+
+    if (symbol == '+') {
+        result = add(a, b);
+    } else if (symbol == '-') {
+        result = subtract(a, b);
+    } else if (symbol == '*') {
+        result = multiply(a, b);
+    } else if (symbol == '/') {
+        result = divide(a, b);
+    } else if (symbol == '%') {
+        result = getModulus(a, b);
+    } else {
+        result = power(a, b);
+    }
+
+    cout << "Result: " << a << " " << symbol << " " << b << " = "
+         << result << endl;
+}
+
+int main() {
+    string choice;
+
+    cout << fixed << setprecision(2);
+
+    while (true) {
+        cout << endl;
+        cout << "============================" << endl;
+        cout << "     SIMPLE CALCULATOR" << endl;
+        cout << "============================" << endl;
+        cout << "1. Addition" << endl;
+        cout << "2. Subtraction" << endl;
+        cout << "3. Multiplication" << endl;
+        cout << "4. Division" << endl;
+        cout << "5. Modulus" << endl;
+        cout << "6. Exponentiation" << endl;
+        cout << "7. Quit" << endl;
+        cout << "Select an operation (1-7): ";
+
+        if (!(cin >> choice)) {
+            break;
+        }
+
+        if (choice == "1") {
+            calculate('+');
+        } else if (choice == "2") {
+            calculate('-');
+        } else if (choice == "3") {
+            calculate('*');
+        } else if (choice == "4") {
+            calculate('/');
+        } else if (choice == "5") {
+            calculate('%');
+        } else if (choice == "6") {
+            calculate('^');
+        } else if (choice == "7") {
+            cout << "Goodbye!" << endl;
+            break;
+        } else {
+            cout << "Error: Please enter a number from 1 to 7." << endl;
+        }
+    }
+
+    return 0;
+}
 

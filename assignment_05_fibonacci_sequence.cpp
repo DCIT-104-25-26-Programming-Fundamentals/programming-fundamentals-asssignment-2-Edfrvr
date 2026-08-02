@@ -51,3 +51,65 @@
 #include <iostream>
 using namespace std;
 
+void printFibonacci(int count) {
+    int current = 0;
+    int following = 1;
+
+    cout << "Fibonacci sequence:";
+
+    for (int i = 0; i < count; i++) {
+        cout << " " << current;
+        int newValue = current + following;
+        current = following;
+        following = newValue;
+    }
+
+    cout << endl;
+}
+
+bool isFibonacci(int number) {
+    if (number < 0) {
+        return false;
+    }
+
+    int current = 0;
+    int following = 1;
+
+    while (current < number) {
+        int newValue = current + following;
+        current = following;
+        following = newValue;
+    }
+
+    return current == number;
+}
+
+int main() {
+    int count;
+    int number;
+
+    cout << "PART A - GENERATE SEQUENCE" << endl;
+    cout << "How many terms? ";
+    cin >> count;
+
+    if (count <= 0) {
+        cout << "Error: Please enter a positive number of terms." << endl;
+        return 0;
+    }
+
+    printFibonacci(count);
+
+    cout << endl;
+    cout << "PART B - CHECK A NUMBER" << endl;
+    cout << "Enter a number to check: ";
+    cin >> number;
+
+    if (isFibonacci(number)) {
+        cout << number << " is a Fibonacci number." << endl;
+    } else {
+        cout << number << " is NOT a Fibonacci number." << endl;
+    }
+
+    return 0;
+}
+

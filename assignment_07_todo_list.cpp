@@ -80,3 +80,120 @@
 #include <string>
 using namespace std;
 
+bool isNumber(string text) {
+    if (text == "") {
+        return false;
+    }
+
+    int length = text.length();
+
+    for (int i = 0; i < length; i++) {
+        if (text[i] < '0' || text[i] > '9') {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void addTask(vector<string>& tasks) {
+    string description;
+
+    cout << "Enter task: ";
+    getline(cin, description);
+
+    if (description == "") {
+        cout << "Error: A task cannot be empty." << endl;
+        return;
+    }
+
+    tasks.push_back(description);
+    cout << "Task added: \"" << description << "\"" << endl;
+}
+
+void viewTasks(vector<string> tasks) {
+    if (tasks.size() == 0) {
+        cout << "Your list is empty. Add a task to get started." << endl;
+        return;
+    }
+
+    cout << "Your Tasks:" << endl;
+
+    int count = tasks.size();
+
+    for (int i = 0; i < count; i++) {
+        cout << (i + 1) << ". " << tasks[i] << endl;
+    }
+}
+
+void deleteTask(vector<string>& tasks) {
+    if (tasks.size() == 0) {
+        cout << "Your list is empty. There is nothing to delete." << endl;
+        return;
+    }
+
+    viewTasks(tasks);
+
+    string entered;
+    cout << "Enter task number to delete: ";
+    getline(cin, entered);
+
+    if (!isNumber(entered)) {
+        cout << "Error: Please enter a valid task number." << endl;
+        return;
+    }
+
+    int number = stoi(entered);
+    int count = tasks.size();
+
+    if (number < 1 || number > count) {
+        cout << "Error: There is no task number " << number << "." << endl;
+        return;
+    }
+
+    string removed = tasks[number - 1];
+
+    for (int i = number - 1; i < count - 1; i++) {
+        tasks[i] = tasks[i + 1];
+    }
+
+    tasks.pop_back();
+    cout << "Task \"" << removed << "\" has been removed." << endl;
+}
+
+int main() {
+    vector<string> tasks;
+    string choice;
+
+    while (true) {
+        cout << endl;
+        cout << "============================" << endl;
+        cout << "     TO-DO LIST MENU" << endl;
+        cout << "============================" << endl;
+        cout << "1. Add task" << endl;
+        cout << "2. View tasks" << endl;
+        cout << "3. Delete task" << endl;
+        cout << "4. Quit" << endl;
+        cout << "Enter your choice (1-4): ";
+
+        if (!getline(cin, choice)) {
+            break;
+        }
+
+        if (choice == "1") {
+            addTask(tasks);
+        } else if (choice == "2") {
+            viewTasks(tasks);
+        } else if (choice == "3") {
+            deleteTask(tasks);
+        } else if (choice == "4") {
+            cout << "Goodbye!" << endl;
+            break;
+        } else {
+            cout << "Error: Please enter a number from 1 to 4." << endl;
+        }
+    }
+
+    return 0;
+}
+
